@@ -36,3 +36,10 @@ export const deleteCartItem = ( cartItems, deleteItem ) => {
        return cartItems.filter( cur => cur.id !== deleteItem.id );
    }
 }
+
+
+// 计算商品总数量
+export const selectCartItemsCount = cartItems => cartItems.reduce( (total,cur)=>total+cur.quantity,0 );
+
+// 计算总价格
+export const selectCartPriceTotal = cartItems => cartItems.reduce( (total,cur)=>total+cur.quantity*cur.price,0 );   

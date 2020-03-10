@@ -2,10 +2,6 @@ import React from 'react';
 
 import "./checkout.styles.scss";
 
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectCartPriceTotal, selectCartItems} from '../../redux/cart/cart.selectors';
-
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 import StripeButton from '../../components/stripe-button/stripe-button.component';
 
@@ -71,9 +67,4 @@ const CheckoutPage = ( {cartPriceTotal, cartItems} ) => {
     );
 };
 
-const mapStateToProps = createStructuredSelector({
-    cartPriceTotal: selectCartPriceTotal,
-    cartItems: selectCartItems,
-});
-
-export default connect(mapStateToProps)(CheckoutPage) ;
+export default CheckoutPage;

@@ -3,16 +3,12 @@ import "./shopage.styles.scss";
 
 import { Route } from 'react-router-dom';
 
-// import默认导出组件名,重命名方法( 等待笔记 )
+// import默认导出组件名,重命名方法( 完成笔记 )
 import { default as CollectionOverView}  from '../../components/collection-overview/collection-overview.container';
 
 import CollectionPage from '../collectionpage/collectionpage.component';
 
 const ShopPage = ({ match }) => {         
-    // 对象解构法 - 创建对象属性变量并赋值( 完成笔记 )
-        // 0. const { collectionShop } = this.state; 相当于 const collectionShop = this.state.collectionShop;
-        // 1. 注意属性名称与变量名称一致，以及注意大括号。
-    console.log(1111,match);
     // 高级路由( 完成笔记 )
         // 0. 子级组件中使用路由
         // 1. 注意事项:

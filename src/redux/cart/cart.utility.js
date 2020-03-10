@@ -36,3 +36,4 @@ export const deleteCartItem = ( cartItems, deleteItem ) => {
        return cartItems.filter( cur => cur.id !== deleteItem.id );
    }
 }
+

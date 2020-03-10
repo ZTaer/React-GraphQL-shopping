@@ -7,7 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 
 /**
- * apollo+graphql配置( 等待笔记 )
+ * apollo+graphql配置( 完成笔记 )
  */
 import { ApolloProvider } from 'react-apollo'; // 全局获取数据
 import { createHttpLink } from 'apollo-link-http'; // 配置apollo ，createHttpLink的目的是连接/graphql与后端沟通
@@ -15,16 +15,16 @@ import { InMemoryCache } from 'apollo-cache-inmemory'; // 缓存请求的数据�
 import { ApolloClient, gql } from 'apollo-boost'; // apollo本尊
 
 /**
- * resolvers配置( 等待笔记 )
+ * resolvers配置( 完成笔记 )
  */
-import { typeDefs, resolvers } from './graphql/resolvers';
+import { typeDefs, resolvers, data } from './graphql/resolvers';
 
 
 import './index.css';
 import App from './App';
 
 /**
- * 主要apollo+graphql配置( 等待笔记 )
+ * 主要apollo+graphql配置( 完成笔记 )
  */
 // 0. 确定GraphQL后端地址
 const httpLink = createHttpLink({
@@ -39,7 +39,7 @@ const client = new ApolloClient({
     link: httpLink,
     cache,
 
-    // resolvers配置,完成这一步,client中的数据即可在全局访问( 等待笔记 )
+    // resolvers配置,完成这一步,client中的数据即可在全局访问( 完成笔记 )
     typeDefs,
     resolvers,
 });
@@ -47,15 +47,13 @@ const client = new ApolloClient({
 // 3. client.writeData()构建本地client数据，方便在全局调用
     // a) 注意要配合resolvers.js配合使用
 client.writeData({
-    data: {
-        cartHidden: false,
-        cartItems: [],
-    }
+    data
 });
 
 // 4. 验证apollo+graphql是否正常工作
     // a) 就是随便获取一下数据
     // b) query: gql`{ 在这里写GraphQL语法 }`
+/*
 client.query({
     query: gql`
         {
@@ -68,6 +66,7 @@ client.query({
 }).then(
     data => console.log('TestGql',data)
 );
+*/
 
 ReactDOM.render(
     // 5. render配置

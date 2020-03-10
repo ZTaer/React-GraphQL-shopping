@@ -5,7 +5,7 @@ import { default as Header} from './components/header/header.container';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shoppage/shoppage.component';
 import SignPage from './pages/signpage/signpage.component';
-import CheckoutPage from './pages/checkout/checkout.component';
+import { default as CheckoutPage } from './pages/checkout/checkout.container';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.config';
 
