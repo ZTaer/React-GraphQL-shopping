@@ -2,8 +2,10 @@ import CART_GQL from './cart.query';
 
 import { 
     addItemToCart, 
+    lowerCartItem,
     selectCartItemsCount,
     selectCartPriceTotal,
+    deleteCartItem,
 } from './cart.utility';
 
 const CartMutation = {
@@ -59,6 +61,79 @@ const CartMutation = {
        });
 
        return newCartItems;
+    },
+
+    lowerCartItem: ( _root, { item }, { cache } ) => {
+        const { cartItems } = cache.readQuery({
+            query: CART_GQL.GET_CART_ITEMS,
+        });
+
+        const newCartItems = lowerCartItem( cartItems, item );
+
+        // 商品数增加
+        cache.writeQuery({
+            query: CART_GQL.GET_CART_ITEMS_COUNT,
+            data: { cartItemsCount: selectCartItemsCount    (newCartItems) },
+        });
+
+        // 价格总计
+        cache.writeQuery({
+            query: CART_GQL.GET_CART_PRICE_TOTAL,
+            data: { cartPriceTotal: selectCartPriceTotal(newCartItems) },
+        });
+
+        cache.writeQuery({
+            query: CART_GQL.GET_CART_ITEMS,
+            data: { cartItems: newCartItems },
+        });
+
+        return newCartItems;
+    },
+
+    deleteCartItem: ( _root, { item }, { cache } ) => {
+        const { cartItems } = cache.readQuery({
+            query: CART_GQL.GET_CART_ITEMS,
+        });
+
+        const newCartItems = deleteCartItem( cartItems, item );
+
+        // 商品数增加
+        cache.writeQuery({
+            query: CART_GQL.GET_CART_ITEMS_COUNT,
+            data: { cartItemsCount: selectCartItemsCount    (newCartItems) },
+        });
+
+        // 价格总计
+        cache.writeQuery({
+            query: CART_GQL.GET_CART_PRICE_TOTAL,
+            data: { cartPriceTotal: selectCartPriceTotal(newCartItems) },
+        });
+
+        cache.writeQuery({
+            query: CART_GQL.GET_CART_ITEMS,
+            data: { cartItems: newCartItems },
+        });
+    },
+
+    clearCartItem: ( _root, _args, { cache } ) => {
+        cache.writeQuery({
+            query: CART_GQL.GET_CART_ITEMS,
+            data: { cartItems: [] }
+        });
+        
+        // 商品数增加
+        cache.writeQuery({
+            query: CART_GQL.GET_CART_ITEMS_COUNT,
+            data: { cartItemsCount: 0 },
+        });
+
+        // 价格总计
+        cache.writeQuery({
+            query: CART_GQL.GET_CART_PRICE_TOTAL,
+            data: { cartPriceTotal: 0 },
+        });
+
+        return [];
     }
 
 }

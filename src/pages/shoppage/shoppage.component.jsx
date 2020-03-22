@@ -6,7 +6,7 @@ import { Route } from 'react-router-dom';
 // import默认导出组件名,重命名方法( 完成笔记 )
 import { default as CollectionOverView}  from '../../components/collection-overview/collection-overview.container';
 
-import CollectionPage from '../collectionpage/collectionpage.component';
+import { default as CollectionPage} from '../collectionpage/collectionpage.container';
 
 const ShopPage = ({ match }) => {         
     // 高级路由( 完成笔记 )

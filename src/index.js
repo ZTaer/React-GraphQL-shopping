@@ -2,17 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './redux/store';
-
 /**
  * apollo+graphql配置( 完成笔记 )
  */
 import { ApolloProvider } from 'react-apollo'; // 全局获取数据
 import { createHttpLink } from 'apollo-link-http'; // 配置apollo ，createHttpLink的目的是连接/graphql与后端沟通
 import { InMemoryCache } from 'apollo-cache-inmemory'; // 缓存请求的数据，防止graphql重复请求数据
-import { ApolloClient, gql } from 'apollo-boost'; // apollo本尊
+import { ApolloClient } from 'apollo-boost'; // apollo本尊
 
 /**
  * resolvers配置( 完成笔记 )
@@ -71,13 +67,9 @@ client.query({
 ReactDOM.render(
     // 5. render配置
     <ApolloProvider client={client} >
-        <Provider store={store} >
             <BrowserRouter>
-                <PersistGate persistor={persistor} >
                     <App />
-                </PersistGate>
             </BrowserRouter>
-        </Provider>
     </ApolloProvider>
     ,
     document.getElementById('root')

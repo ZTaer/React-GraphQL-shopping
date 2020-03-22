@@ -1,12 +1,14 @@
 import React from 'react';
 import "./collection-view.styles.scss";
-
+import { withRouter, Link } from 'react-router-dom';
 import { default as CollectionItem } from "../collection-item/collection-item.container";
 
-const CollectionView = ( {title,items} ) => {
+const CollectionView = ( {title,items, match} ) => {
     return (
         <div className="collection-preview">
-            <h1 className="title"> {title.toUpperCase()} </h1>
+            <Link className="title" to={`${match.url}/${encodeURI(title.toLowerCase())}`} >
+                {`${title.toUpperCase()} · 查看更多`}
+            </Link>
             <div className="preview">
                 {
                     items
@@ -21,4 +23,4 @@ const CollectionView = ( {title,items} ) => {
 
 }
 
-export default CollectionView;
+export default withRouter(CollectionView) ;

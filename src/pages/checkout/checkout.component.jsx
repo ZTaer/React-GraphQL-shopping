@@ -2,8 +2,8 @@ import React from 'react';
 
 import "./checkout.styles.scss";
 
-import CheckoutItem from '../../components/checkout-item/checkout-item.component';
-import StripeButton from '../../components/stripe-button/stripe-button.component';
+import { default as CheckoutItem } from '../../components/checkout-item/checkout-item.container';
+import { default as StripeButton} from '../../components/stripe-button/stripe-button.container';
 
 const CheckoutPage = ( {cartPriceTotal, cartItems} ) => {
     return(

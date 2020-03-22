@@ -3,16 +3,8 @@ import "./header.styles.scss";
 import { Link } from "react-router-dom";
 import {auth} from "../../firebase/firebase.config";
 
-import { createStructuredSelector } from 'reselect';
-import { selectUserCurrentUser } from '../../redux/user/user.selectors';
-
-// connect函数使react组件可以访问redux存储( 完成笔记 )
-import { connect } from 'react-redux';
 import { default as CartIcon } from '../cart-icon/cart-icon.container';
 import { default as CartDropdown } from '../cart-dropdown/cart-dropdown.container';
-
-import CustomModal from '../custom-modal/custom-modal.component';
-import { handleOpenModal } from '../../redux/modal/modal.actions';
 
 // React-React导入svg文件( 完成笔记 )
     // 0. import { ReactComponent as Logo } from "../../assets/crown.svg";
@@ -29,11 +21,10 @@ class Header extends React.Component {
     }
 
     render(){
-        const {currentUser, hidden} = this.props;
+        const {currentUser, hidden, clearCurrentUser, clearCartItem} = this.props;
+
         return(
             <div className="header">
-
-                <CustomModal/>
 
                 <Link className="logo-container" to="/" >
                     <Logo className="logo" />
@@ -51,7 +42,11 @@ class Header extends React.Component {
                     {
                         currentUser 
                         ? 
-                        ( <div className="option" onClick={ ()=>auth.signOut() } >退出</div> ) // 用户退出登陆( 完成笔记 )
+                        ( <div className="option" onClick={ ()=>{
+                            auth.signOut();
+                            clearCurrentUser();
+                            clearCartItem();
+                        } } >退出</div> ) // 用户退出登陆( 完成笔记 )
                         : 
                         ( <Link className="option" to="/sign" >注册/登陆</Link> )
                     }
@@ -67,13 +62,6 @@ class Header extends React.Component {
     }
 }
 
-const mapStateToProps = createStructuredSelector({
-    currentUser: selectUserCurrentUser,
-});
 
-const mapDispatchToProps = dispatch => ({
-    handleOpenModal: text => dispatch(handleOpenModal(text)),
-});
-
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+export default Header;
 

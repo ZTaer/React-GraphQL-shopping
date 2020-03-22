@@ -8,15 +8,11 @@ import React from 'react';
 import "./stripe-button.styles.scss";
 
 import StripeCheckout from 'react-stripe-checkout';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectUserEmail, selectUserImg } from '../../redux/user/user.selectors';
-
 
 const StripeButton = ({ price, userEmail, userImg }) => {
     const priceForStripe = price * 100; // 因为默认单位为美分
     const publishableKey = 'pk_test_119uiR5NTtcknALVrdLEfQPm00IylDmstZ';
-
+    
     const onToken = token => {
         console.log('Stripe支付回调信息',token); // 支付后stripe回调的支付信息
         alert('支付成功! - 用户支付回调信息请查看控制栏');
@@ -49,9 +45,4 @@ const StripeButton = ({ price, userEmail, userImg }) => {
     );
 };
 
-const mapStateToProps = createStructuredSelector({
-    userEmail: selectUserEmail,
-    userImg: selectUserImg,
-});
-
-export default connect(mapStateToProps)(StripeButton) ;
+export default StripeButton;
