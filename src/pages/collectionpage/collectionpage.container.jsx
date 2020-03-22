@@ -7,7 +7,7 @@ import { useQuery } from '@apollo/react-hooks';
 import CollectionPage from './collectionpage.component';
 import Spinner from '../../components/spinner/spinner.component';
 
-// 注意与本地获取函数gql区别( 等待笔记 )
+// 注意与本地获取函数gql区别( 完成笔记 )
     // 原因是: 图
 const GET_COLLECTION_ITEM = gql`
     query getCollectionsByTitle( $title: String! ){
@@ -25,7 +25,7 @@ const GET_COLLECTION_ITEM = gql`
 `;
 
 const CollectionPageContainer = ({ match }) => {
-    // useQuery使用服务端函数( 等待笔记 )
+    // useQuery使用服务端函数( 完成笔记 )
     const { loading, data } = useQuery( 
         GET_COLLECTION_ITEM,
         { variables: { title: match.params.collectionId } }
